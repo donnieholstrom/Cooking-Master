@@ -1,0 +1,31 @@
+fileFormatVersion: 2
+guid: 87ef01e80f1c64c47b5e30bfe2abe296
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Tofino Personal
+  fontNames:
+  - Tofino Personal
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 456adf732cb56e7498591bf28758a3a2, type: 3}
+  - {fileID: 12800000, guid: 655597a51da730942b6d2fc270f80d3f, type: 3}
+  - {fileID: 12800000, guid: 3bef7bb5d8859044c8e93ad6c831e484, type: 3}
+  - {fileID: 12800000, guid: 576a738606f4cb94593e8dbdcc5c41fa, type: 3}
+  - {fileID: 12800000, guid: 40e768b7b7bfde44a870f4f147ecdbee, type: 3}
+  - {fileID: 12800000, guid: 5b5acab88bfc83b429027171786be882, type: 3}
+  - {fileID: 12800000, guid: 4559720b5587e0d419ff6ddea74a2f70, type: 3}
+  - {fileID: 12800000, guid: 1cbd2cfbc38702543a7170ace4214826, type: 3}
+  - {fileID: 12800000, guid: 793f139e2e0b0984981ae586425a5cae, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
