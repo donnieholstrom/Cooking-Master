@@ -8,6 +8,8 @@ TagManager:
   - Managers
   - Player1
   - Player2
+  - DeliveryZone
+  - IngredientContainer
   layers:
   - Default
   - TransparentFX
@@ -20,8 +22,8 @@ TagManager:
   - Player
   - Wall
   - Collectable
-  - 
-  - 
+  - DeliveryZone
+  - IngredientContainer
   - 
   - 
   - 

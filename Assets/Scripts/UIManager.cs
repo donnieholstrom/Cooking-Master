@@ -19,12 +19,12 @@ public class UIManager : MonoBehaviour
     // update player 1 score ui
     public void UpdateScore1(int score)
     {
-        scoreText1.text = score.ToString();
+        scoreText1.text = score.ToString("#,#");
     }
 
     // update player 2 score ui
     public void UpdateScore2(int score)
     {
-        scoreText2.text = score.ToString();
+        scoreText2.text = score.ToString("#,#");
     }
 }

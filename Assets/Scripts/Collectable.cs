@@ -19,6 +19,8 @@ public class Collectable : MonoBehaviour
 
     private GameManager gameManager;
 
+    private CollectableSpawner spawner;
+
     // gets access to all the good stuff
     private void Awake()
     {
@@ -26,6 +28,7 @@ public class Collectable : MonoBehaviour
         player2 = GameObject.FindGameObjectWithTag("Player2").GetComponent<PlayerMovement>();
 
         gameManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<GameManager>();
+        spawner = GameObject.FindGameObjectWithTag("Managers").GetComponent<CollectableSpawner>();
     }
 
     // handles all the corresponding logic triggers for each collectable
@@ -38,11 +41,13 @@ public class Collectable : MonoBehaviour
                 if (collision.CompareTag("Player1") && player1.SpeedBoost(duration, power))
                 {
                     Destroy(gameObject);
+                    Die();
                 }
 
                 else if (collision.CompareTag("Player2") && player2.SpeedBoost(duration,power))
                 {
                     Destroy(gameObject);
+                    Die();
                 }
 
                 break;
@@ -52,13 +57,13 @@ public class Collectable : MonoBehaviour
                 if (collision.CompareTag("Player1"))
                 {
                     gameManager.AddScore(PlayerMovement.PlayerNumber.PlayerOne, power);
-                    Destroy(gameObject);
+                    Die();
                 }
 
                 else if (collision.CompareTag("Player2"))
                 {
                     gameManager.AddScore(PlayerMovement.PlayerNumber.PlayerTwo, power);
-                    Destroy(gameObject);
+                    Die();
                 }
 
                 break;
@@ -68,16 +73,24 @@ public class Collectable : MonoBehaviour
                 if (collision.CompareTag("Player1"))
                 {
                     gameManager.AddTime(PlayerMovement.PlayerNumber.PlayerOne, power);
-                    Destroy(gameObject);
+                    Die();
                 }
 
                 else if (collision.CompareTag("Player2"))
                 {
                     gameManager.AddTime(PlayerMovement.PlayerNumber.PlayerTwo, power);
-                    Destroy(gameObject);
+                    Die();
                 }
 
                 break;
         }
+    }
+
+    // handles what needs to happen before the collectable is destroyed
+    private void Die()
+    {
+        spawner.numberSpawned -= 1;
+
+        Destroy(gameObject);
     }
 }
