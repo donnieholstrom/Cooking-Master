@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
 
-    public float moveSpeed = 3500;
+    private float startMoveSpeed = 3500;
+    private float moveSpeed = 3500;
 
     private Vector2 movement;
 
@@ -19,6 +21,8 @@ public class PlayerMovement : MonoBehaviour
     private string horizontalInput;
     private string verticalInput;
 
+    private bool buffed;
+
     // get access to Rigidbody2D component
     // sets correct input axes based on player number
     private void Awake()
@@ -28,13 +32,17 @@ public class PlayerMovement : MonoBehaviour
         switch (playerNumber)
         {
             case PlayerNumber.PlayerOne:
+
                 horizontalInput = "Horizontal1";
                 verticalInput = "Vertical1";
+
                 break;
 
             case PlayerNumber.PlayerTwo:
+
                 horizontalInput = "Horizontal2";
                 verticalInput = "Vertical2";
+
                 break;
         }
     }
@@ -50,5 +58,29 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime);
+    }
+
+    // exposes the ienumerator, grabs the buff duration, returns false if buff is already active
+    public bool SpeedBoost(float duration, int power)
+    {
+        if (buffed)
+        {
+            return false;
+        }
+
+        StartCoroutine(SpeedBoostEffect(duration, power));
+        return true;
+    }
+
+    // runs the actual effect of the buff (speeds up the player by 'power' for 'duration')
+    private IEnumerator SpeedBoostEffect(float duration, int power)
+    {
+        buffed = true;
+        moveSpeed *= power;
+
+        yield return new WaitForSeconds(duration);
+
+        moveSpeed = startMoveSpeed;
+        buffed = false;
     }
 }
