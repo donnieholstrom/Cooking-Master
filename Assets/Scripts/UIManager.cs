@@ -3,19 +3,11 @@ using UnityEngine;
 
 public class UIManager : MonoBehaviour
 {
-    private GameManager gameManager;
-
     public TextMeshProUGUI timeText1;
     public TextMeshProUGUI timeText2;
 
     public TextMeshProUGUI scoreText1;
     public TextMeshProUGUI scoreText2;
-
-    // get reference to the GameManager
-    private void Awake()
-    {
-        gameManager = GetComponent<GameManager>();
-    }
 
     // update both players' time ui
     public void UpdateTime(float time1, float time2)

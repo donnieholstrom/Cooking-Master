@@ -24,9 +24,12 @@ public class GameManager : MonoBehaviour
         time2 = startTime;
     }
 
-    // sets playing1 and playing2 to true to start the game
+    // sets playing1 and playing2 to true to start the game, updates UI
     private void Start()
     {
+        uiManager.UpdateScore1(score1);
+        uiManager.UpdateScore2(score2);
+
         playing1 = true;
         playing2 = true;
     }
@@ -42,6 +45,16 @@ public class GameManager : MonoBehaviour
         if (playing2)
         {
             time2 -= Time.deltaTime;
+        }
+
+        if (time1 <= 0)
+        {
+            playing1 = false;
+        }
+
+        if (time2 <= 0)
+        {
+            playing2 = false;
         }
 
         uiManager.UpdateTime(time1, time2);
