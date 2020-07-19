@@ -40,13 +40,11 @@ public class Collectable : MonoBehaviour
 
                 if (collision.CompareTag("Player1") && player1.SpeedBoost(duration, power))
                 {
-                    Destroy(gameObject);
                     Die();
                 }
 
                 else if (collision.CompareTag("Player2") && player2.SpeedBoost(duration,power))
                 {
-                    Destroy(gameObject);
                     Die();
                 }
 

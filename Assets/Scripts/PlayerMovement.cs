@@ -65,8 +65,6 @@ public class PlayerMovement : MonoBehaviour
     {
         if (buffed)
         {
-            Debug.Log("Already buffed!");
-
             return false;
         }
 
