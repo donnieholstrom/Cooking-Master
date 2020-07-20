@@ -9,6 +9,12 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI scoreText1;
     public TextMeshProUGUI scoreText2;
 
+    private void Awake()
+    {
+        scoreText1.text = "0";
+        scoreText2.text = "0";
+    }
+
     // update both players' time ui
     public void UpdateTime(float time1, float time2)
     {

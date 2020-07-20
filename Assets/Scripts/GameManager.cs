@@ -27,9 +27,6 @@ public class GameManager : MonoBehaviour
     // sets playing1 and playing2 to true to start the game, updates UI
     private void Start()
     {
-        uiManager.UpdateScore1(score1);
-        uiManager.UpdateScore2(score2);
-
         playing1 = true;
         playing2 = true;
     }

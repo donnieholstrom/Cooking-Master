@@ -3,15 +3,13 @@ using UnityEngine;
 
 public class CollectableSpawner : MonoBehaviour
 {
-    [SerializeField]
-    private List<GameObject> spawnObjects;
+    public List<GameObject> spawnObjects;
 
     private bool playing;
 
     private float spawnTimer = 0f;
 
-    [SerializeField]
-    private float timeToSpawn;
+    public float timeToSpawn;
 
     public int numberSpawned;
 
