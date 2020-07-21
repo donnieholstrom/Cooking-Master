@@ -5,7 +5,7 @@ public class CollectableSpawner : MonoBehaviour
 {
     public List<GameObject> spawnObjects;
 
-    private bool playing;
+    private bool spawning;
 
     private float spawnTimer = 0f;
 
@@ -16,7 +16,7 @@ public class CollectableSpawner : MonoBehaviour
     // starts the spawning
     private void Awake()
     {
-        playing = true;
+        spawning = true;
 
         numberSpawned = 0;
     }
@@ -24,7 +24,7 @@ public class CollectableSpawner : MonoBehaviour
     // spawn timing logic
     private void Update()
     {
-        if (playing)
+        if (spawning)
         {
             if (spawnTimer >= timeToSpawn)
             {

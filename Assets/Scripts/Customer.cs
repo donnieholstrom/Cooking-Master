@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Customer : MonoBehaviour
 {
@@ -147,8 +146,10 @@ public class Customer : MonoBehaviour
         bar.localScale = new Vector3(timeRemaining / totalTime, 0.1232f, 1);
     }
 
+    #region Ingredient Image references
+
     // returns the sprite that corresponds to the passed ingredient
-    public Sprite GetIngredientSprite (Ingredient ingredient)
+    public Sprite GetIngredientSprite(Ingredient ingredient)
     {
         switch (ingredient)
         {
@@ -206,4 +207,7 @@ public class Customer : MonoBehaviour
 
         return Color.clear;
     }
+
+    #endregion
+
 }

@@ -23,6 +23,8 @@ public class PlayerMovement : MonoBehaviour
 
     private bool buffed;
 
+    public bool frozen = false;
+
     // get access to Rigidbody2D component
     // sets correct input axes based on player number
     private void Awake()
@@ -57,7 +59,10 @@ public class PlayerMovement : MonoBehaviour
     // move the player each frame (using FixedUpdate() for physics interactions)
     private void FixedUpdate()
     {
-        rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime);
+        if (!frozen)
+        {
+            rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime);
+        }
     }
 
     // exposes the ienumerator, grabs the buff duration, returns false if buff is already active

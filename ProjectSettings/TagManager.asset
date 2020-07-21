@@ -21,6 +21,8 @@ TagManager:
   - Rice
   - Trashcan
   - PlayerHold
+  - PickupZone1
+  - PickupZone2
   layers:
   - Default
   - TransparentFX

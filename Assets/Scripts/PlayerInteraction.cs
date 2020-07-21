@@ -19,6 +19,8 @@ public class PlayerInteraction : MonoBehaviour
         Rice,
         CuttingBoard1,
         CuttingBoard2,
+        PickupZone1,
+        PickupZone2,
         DeliveryZone1,
         DeliveryZone2,
         Trashcan
@@ -44,6 +46,25 @@ public class PlayerInteraction : MonoBehaviour
     public Color riceColor;
 
     public CuttingBoard cuttingBoard;
+
+    public bool holdingMeal = false;
+
+    public SpriteRenderer mealSprite1;
+    public SpriteRenderer mealSprite2;
+    public SpriteRenderer mealSprite3;
+    public SpriteRenderer mealPlate;
+
+    private Customer.Ingredient mealIngredient1;
+    private Customer.Ingredient mealIngredient2;
+    private Customer.Ingredient mealIngredient3;
+
+    private CustomerManager customerManager;
+
+    // grabs the customer manager
+    private void Awake()
+    {
+        customerManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<CustomerManager>();
+    }
 
     // sets the proper input based on player number
     private void Start()
@@ -102,6 +123,14 @@ public class PlayerInteraction : MonoBehaviour
                 hoveringOn = Interactable.CuttingBoard2;
                 break;
 
+            case "PickupZone1":
+                hoveringOn = Interactable.PickupZone1;
+                break;
+
+            case "PickupZone2":
+                hoveringOn = Interactable.PickupZone2;
+                break;
+
             case "DeliveryZone1":
                 hoveringOn = Interactable.DeliveryZone1;
                 break;
@@ -155,6 +184,14 @@ public class PlayerInteraction : MonoBehaviour
 
                 case "CuttingBoard2":
                     hoveringOn = Interactable.CuttingBoard2;
+                    break;
+
+                case "PickupZone1":
+                    hoveringOn = Interactable.PickupZone1;
+                    break;
+
+                case "PickupZone2":
+                    hoveringOn = Interactable.PickupZone2;
                     break;
 
                 case "DeliveryZone1":
@@ -226,15 +263,139 @@ public class PlayerInteraction : MonoBehaviour
                 break;
 
             case Interactable.CuttingBoard1:
+
+                if (playerNumber == PlayerMovement.PlayerNumber.PlayerOne)
+                {
+                    if (!cuttingBoard.boardEmpty && cuttingBoard.numberChopped < 3)
+                    {
+                        cuttingBoard.Interact(Customer.Ingredient.None);
+                    }
+
+                    else if (heldIngredient1 != Customer.Ingredient.None)
+                    {
+                        cuttingBoard.Interact(heldIngredient1);
+
+                        heldIngredient1 = Customer.Ingredient.None;
+                        holding1.color = Color.clear;
+                    }
+
+                    else if (heldIngredient2 != Customer.Ingredient.None)
+                    {
+                        cuttingBoard.Interact(heldIngredient2);
+
+                        heldIngredient2 = Customer.Ingredient.None;
+                        holding2.color = Color.clear;
+                    }
+
+                    else
+                    {
+                        cuttingBoard.Interact(Customer.Ingredient.None);
+                    }
+                }
+
                 break;
 
             case Interactable.CuttingBoard2:
+
+                if (playerNumber == PlayerMovement.PlayerNumber.PlayerTwo)
+                {
+                    if (!cuttingBoard.boardEmpty && cuttingBoard.numberChopped < 3)
+                    {
+                        cuttingBoard.Interact(Customer.Ingredient.None);
+                    }
+
+                    else if (heldIngredient1 != Customer.Ingredient.None)
+                    {
+                        if (cuttingBoard.Interact(heldIngredient1))
+                        {
+                            heldIngredient1 = Customer.Ingredient.None;
+                            holding1.color = Color.clear;
+                        }
+                    }
+
+                    else if (heldIngredient2 != Customer.Ingredient.None)
+                    {
+                        if (cuttingBoard.Interact(heldIngredient2))
+                        {
+                            heldIngredient2 = Customer.Ingredient.None;
+                            holding2.color = Color.clear;
+                        }
+                    }
+
+                    else
+                    {
+                        cuttingBoard.Interact(Customer.Ingredient.None);
+                    }
+                }
+
+                break;
+
+            case Interactable.PickupZone1:
+
+                if (playerNumber == PlayerMovement.PlayerNumber.PlayerOne)
+                {
+                    if (!holdingMeal)
+                    {
+                        cuttingBoard.TakeMeal();
+                    }
+                }
+
+                break;
+
+            case Interactable.PickupZone2:
+
+                if (playerNumber == PlayerMovement.PlayerNumber.PlayerTwo)
+                {
+                    if (!holdingMeal)
+                    {
+                        cuttingBoard.TakeMeal();
+                    }
+                }
+
                 break;
 
             case Interactable.DeliveryZone1:
+
+                if (playerNumber == PlayerMovement.PlayerNumber.PlayerOne)
+                {
+                    customerManager.DeliverMeal(mealIngredient1, mealIngredient2, mealIngredient3);
+
+                    holdingMeal = false;
+
+                    mealPlate.color = Color.clear;
+
+                    mealSprite1.color = Color.clear;
+                    mealIngredient1 = Customer.Ingredient.None;
+
+                    mealSprite2.color = Color.clear;
+                    mealIngredient2 = Customer.Ingredient.None;
+
+                    mealSprite3.color = Color.clear;
+                    mealIngredient3 = Customer.Ingredient.None;
+                }
+
                 break;
 
             case Interactable.DeliveryZone2:
+
+                if (playerNumber == PlayerMovement.PlayerNumber.PlayerTwo)
+                {
+                    customerManager.DeliverMeal(mealIngredient1, mealIngredient2, mealIngredient3);
+
+                    holdingMeal = false;
+
+                    mealPlate.color = Color.clear;
+
+                    mealSprite1.color = Color.clear;
+                    mealIngredient1 = Customer.Ingredient.None;
+
+                    mealSprite2.color = Color.clear;
+                    mealIngredient2 = Customer.Ingredient.None;
+
+                    mealSprite3.color = Color.clear;
+                    mealIngredient3 = Customer.Ingredient.None;
+                }
+
                 break;
 
             case Interactable.Trashcan:
@@ -276,9 +437,26 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
     }
-
+    
+    // handles interacting with the trashcan
     private void Trash()
     {
+        if (holdingMeal)
+        {
+            holdingMeal = false;
+
+            mealPlate.color = Color.clear;
+
+            mealSprite1.color = Color.clear;
+            mealIngredient1 = Customer.Ingredient.None;
+
+            mealSprite2.color = Color.clear;
+            mealIngredient2 = Customer.Ingredient.None;
+
+            mealSprite3.color = Color.clear;
+            mealIngredient3 = Customer.Ingredient.None;
+        }
+
         if (heldIngredient1 != Customer.Ingredient.None)
         {
             heldIngredient1 = Customer.Ingredient.None;
@@ -294,8 +472,29 @@ public class PlayerInteraction : MonoBehaviour
 
             return;
         }
-
     }
+
+    // takes the meal from the cutting board
+    public void TakeMeal(Customer.Ingredient boardMealIngredient1, Customer.Ingredient boardMealIngredient2, Customer.Ingredient boardMealIngredient3)
+    {
+        holdingMeal = true;
+
+        mealPlate.color = Color.black;
+
+        mealSprite1.sprite = GetIngredientSprite(boardMealIngredient1);
+        mealSprite1.color = GetIngredientColor(boardMealIngredient1);
+        mealIngredient1 = boardMealIngredient1;
+
+        mealSprite2.sprite = GetIngredientSprite(boardMealIngredient2);
+        mealSprite2.color = GetIngredientColor(boardMealIngredient2);
+        mealIngredient2 = boardMealIngredient2;
+
+        mealSprite3.sprite = GetIngredientSprite(boardMealIngredient3);
+        mealSprite3.color = GetIngredientColor(boardMealIngredient3);
+        mealIngredient3 = boardMealIngredient3;
+    }
+
+    #region Ingredient Image references
 
     // returns the sprite that corresponds to the passed ingredient
     public Sprite GetIngredientSprite(Customer.Ingredient ingredient)
@@ -356,4 +555,7 @@ public class PlayerInteraction : MonoBehaviour
 
         return Color.clear;
     }
+
+    #endregion
+
 }

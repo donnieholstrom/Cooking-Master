@@ -4,6 +4,9 @@ public class GameManager : MonoBehaviour
 {
     public float startTime;
 
+    public PlayerMovement player1;
+    public PlayerMovement player2;
+
     private int score1 = 0;
     private int score2 = 0;
 
@@ -14,11 +17,13 @@ public class GameManager : MonoBehaviour
     private bool playing2;
 
     private UIManager uiManager;
+    private CustomerManager customerManager;
 
-    // gets reference to the UIManager and sets the start times
+    // gets reference to the good stuff and sets the start times
     private void Awake()
     {
         uiManager = GetComponent<UIManager>();
+        customerManager = GetComponent<CustomerManager>();
 
         time1 = startTime;
         time2 = startTime;
@@ -47,11 +52,18 @@ public class GameManager : MonoBehaviour
         if (time1 <= 0)
         {
             playing1 = false;
+            player1.frozen = true;
         }
 
         if (time2 <= 0)
         {
             playing2 = false;
+            player2.frozen = true;
+        }
+
+        if (!playing1 &&!playing2)
+        {
+            // end the game
         }
 
         uiManager.UpdateTime(time1, time2);
