@@ -35,6 +35,7 @@ public class Customer : MonoBehaviour
     public SpriteRenderer ingredientMid2;
 
     private GameManager manager;
+    private CollectableSpawner collectableSpawner;
 
     private enum AngryAt
     {
@@ -67,6 +68,7 @@ public class Customer : MonoBehaviour
     private void Awake()
     {
         manager = GameObject.FindGameObjectWithTag("Managers").GetComponent<GameManager>();
+        collectableSpawner = GameObject.FindGameObjectWithTag("Managers").GetComponent<CollectableSpawner>();
     }
 
     // creates the customer's ingredient set and sets the time accordingly
@@ -74,7 +76,7 @@ public class Customer : MonoBehaviour
     {
         numberOfIngredients = UnityEngine.Random.Range(1, 4);
 
-        totalTime = 12f * numberOfIngredients;
+        totalTime = 15f * numberOfIngredients;
         timeRemaining = totalTime;
 
         switch (numberOfIngredients)
@@ -219,9 +221,9 @@ public class Customer : MonoBehaviour
         {
             manager.AddScore(playerNumber, 200 * numberOfIngredients);
 
-            if (timeRemaining / totalTime >= 0.7f)
+            if (timeRemaining / totalTime >= 0.5f)
             {
-                // spawn a collectable for that player
+                collectableSpawner.Spawn(playerNumber);
             }
 
             Destroy(gameObject);

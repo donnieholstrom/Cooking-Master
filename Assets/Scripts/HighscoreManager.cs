@@ -1,23 +1,30 @@
-﻿using UnityEngine;
-using System.Linq;
+﻿using Boo.Lang;
+using UnityEngine;
 
 public class HighscoreManager : MonoBehaviour
 {
-    public int[] highscores = new int[10];
+    public List<int> highscores = new List<int>();
 
-    // makes sure this guy sticks around
+    public enum Winner
+    {
+        PlayerOne,
+        PlayerTwo,
+        Tie
+    }
+
+    public Winner winner = Winner.Tie;
+
+    public int score1;
+    public int score2;
+
+    // makes sure this guy sticks around, creates the highscore list with 0s
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
-    }
 
-    private void Start()
-    {
-        for (int i = 0; i < highscores.Count(); i++)
+        for (int i = 1; i <= 10; i++)
         {
-            highscores[i] = 0;
+            highscores.Add(0);
         }
-
-        Debug.Log(highscores[1].ToString() + highscores[9].ToString());
     }
 }

@@ -22,11 +22,13 @@ public class CustomerManager : MonoBehaviour
     public Transform slot4;
 
     private GameManager gameManager;
+    private CollectableSpawner collectableSpawner;
 
     // grabs the GameManager spawns the first customer
     private void Awake()
     {
         gameManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<GameManager>();
+        collectableSpawner = GameObject.FindGameObjectWithTag("Managers").GetComponent<CollectableSpawner>();
 
         spawning = true;
 

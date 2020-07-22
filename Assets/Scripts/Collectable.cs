@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using TMPro;
 
 public class Collectable : MonoBehaviour
 {
@@ -13,6 +14,10 @@ public class Collectable : MonoBehaviour
 
     public int power;
     public float duration = 0f;
+
+    public PlayerMovement.PlayerNumber ownedBy;
+
+    public TextMeshPro numberDisplay;
 
     private PlayerMovement player1;
     private PlayerMovement player2;
@@ -31,6 +36,20 @@ public class Collectable : MonoBehaviour
         spawner = GameObject.FindGameObjectWithTag("Managers").GetComponent<CollectableSpawner>();
     }
 
+    private void Start()
+    {
+        switch (ownedBy)
+        {
+            case PlayerMovement.PlayerNumber.PlayerOne:
+                numberDisplay.text = "1";
+                break;
+
+            case PlayerMovement.PlayerNumber.PlayerTwo:
+                numberDisplay.text = "2";
+                break;
+        }
+    }
+
     // handles all the corresponding logic triggers for each collectable
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -38,12 +57,12 @@ public class Collectable : MonoBehaviour
         {
             case Type.Speed:
 
-                if (collision.CompareTag("Player1") && player1.SpeedBoost(duration, power))
+                if (collision.CompareTag("Player1") && ownedBy == PlayerMovement.PlayerNumber.PlayerOne && player1.SpeedBoost(duration, power))
                 {
                     Die();
                 }
 
-                else if (collision.CompareTag("Player2") && player2.SpeedBoost(duration,power))
+                else if (collision.CompareTag("Player2") && ownedBy == PlayerMovement.PlayerNumber.PlayerTwo && player2.SpeedBoost(duration,power))
                 {
                     Die();
                 }
@@ -52,13 +71,13 @@ public class Collectable : MonoBehaviour
 
             case Type.Points:
 
-                if (collision.CompareTag("Player1"))
+                if (collision.CompareTag("Player1") && ownedBy == PlayerMovement.PlayerNumber.PlayerOne)
                 {
                     gameManager.AddScore(PlayerMovement.PlayerNumber.PlayerOne, power);
                     Die();
                 }
 
-                else if (collision.CompareTag("Player2"))
+                else if (collision.CompareTag("Player2") && ownedBy == PlayerMovement.PlayerNumber.PlayerTwo)
                 {
                     gameManager.AddScore(PlayerMovement.PlayerNumber.PlayerTwo, power);
                     Die();
@@ -68,13 +87,13 @@ public class Collectable : MonoBehaviour
 
             case Type.Time:
 
-                if (collision.CompareTag("Player1"))
+                if (collision.CompareTag("Player1") && ownedBy == PlayerMovement.PlayerNumber.PlayerOne)
                 {
                     gameManager.AddTime(PlayerMovement.PlayerNumber.PlayerOne, power);
                     Die();
                 }
 
-                else if (collision.CompareTag("Player2"))
+                else if (collision.CompareTag("Player2") && ownedBy == PlayerMovement.PlayerNumber.PlayerTwo)
                 {
                     gameManager.AddTime(PlayerMovement.PlayerNumber.PlayerTwo, power);
                     Die();

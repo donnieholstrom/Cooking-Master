@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,13 +19,13 @@ public class GameManager : MonoBehaviour
     private bool playing2;
 
     private UIManager uiManager;
-    private CustomerManager customerManager;
+    private HighscoreManager highscoreManager;
 
     // gets reference to the good stuff and sets the start times
     private void Awake()
     {
         uiManager = GetComponent<UIManager>();
-        customerManager = GetComponent<CustomerManager>();
+        highscoreManager = GameObject.FindGameObjectWithTag("Permanent").GetComponent<HighscoreManager>();
 
         time1 = startTime;
         time2 = startTime;
@@ -63,7 +65,7 @@ public class GameManager : MonoBehaviour
 
         if (!playing1 &&!playing2)
         {
-            // end the game
+            EndGame();
         }
 
         uiManager.UpdateTime(time1, time2);
@@ -109,5 +111,59 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+    }
+
+    // ends the game properly, passing scores and announcing winners
+    private void EndGame()
+    {
+        if (score1 > score2)
+        {
+            highscoreManager.winner = HighscoreManager.Winner.PlayerOne;
+
+            for (int i = 0; i < highscoreManager.highscores.Count(); i++)
+            {
+                if (score1 > highscoreManager.highscores[i])
+                {
+                    highscoreManager.highscores.Insert(i, score1);
+                    highscoreManager.highscores.RemoveAt(highscoreManager.highscores.Count() - 1);
+
+                    break;
+                }
+            }
+        }
+
+        else if (score2 > score1)
+        {
+            highscoreManager.winner = HighscoreManager.Winner.PlayerTwo;
+
+            for (int i = 0; i < highscoreManager.highscores.Count(); i++)
+            {
+                if (score2 > highscoreManager.highscores[i])
+                {
+                    highscoreManager.highscores.Insert(i, score2);
+                    highscoreManager.highscores.RemoveAt(highscoreManager.highscores.Count() - 1);
+
+                    break;
+                }
+            }
+        }
+
+        else
+        {
+            highscoreManager.winner = HighscoreManager.Winner.Tie;
+
+            for (int i = 0; i < highscoreManager.highscores.Count(); i++)
+            {
+                if (score1 > highscoreManager.highscores[i])
+                {
+                    highscoreManager.highscores.Insert(i, score1);
+                    highscoreManager.highscores.RemoveAt(highscoreManager.highscores.Count() - 1);
+
+                    break;
+                }
+            }
+        }
+
+        SceneManager.LoadScene(3);
     }
 }

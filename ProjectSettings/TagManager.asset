@@ -25,6 +25,7 @@ TagManager:
   - PickupZone2
   - DeliveryZone3
   - DeliveryZone4
+  - Permanent
   layers:
   - Default
   - TransparentFX

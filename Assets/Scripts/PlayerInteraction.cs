@@ -61,11 +61,13 @@ public class PlayerInteraction : MonoBehaviour
     private Customer.Ingredient mealIngredient3;
 
     private CustomerManager customerManager;
+    private GameManager gameManager;
 
-    // grabs the customer manager
+    // grabs the customer manager and the game manager
     private void Awake()
     {
         customerManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<CustomerManager>();
+        gameManager = GameObject.FindGameObjectWithTag("Managers").GetComponent<GameManager>();
     }
 
     // sets the proper input based on player number
@@ -493,6 +495,8 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (holdingMeal)
         {
+            gameManager.AddScore(playerNumber, -250);
+
             holdingMeal = false;
 
             mealPlate.color = Color.clear;
