@@ -164,6 +164,9 @@ public class GameManager : MonoBehaviour
             }
         }
 
+        highscoreManager.score1 = score1;
+        highscoreManager.score2 = score2;
+
         SceneManager.LoadScene(3);
     }
 }

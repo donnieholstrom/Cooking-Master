@@ -53,7 +53,11 @@ public class EndMenu : MonoBehaviour
                 break;
 
             case HighscoreManager.Winner.PlayerTwo:
-                winnerText.text = "PLAYER ONE";
+                winnerText.text = "PLAYER TWO";
+                break;
+
+            case HighscoreManager.Winner.Tie:
+                winnerText.text = "THE DEVELOPER";
                 break;
         }
     }

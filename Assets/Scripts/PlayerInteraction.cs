@@ -484,8 +484,6 @@ public class PlayerInteraction : MonoBehaviour
 
         else
         {
-            // can't pick up
-
             return;
         }
     }
