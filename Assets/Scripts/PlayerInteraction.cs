@@ -23,6 +23,8 @@ public class PlayerInteraction : MonoBehaviour
         PickupZone2,
         DeliveryZone1,
         DeliveryZone2,
+        DeliveryZone3,
+        DeliveryZone4,
         Trashcan
     }
 
@@ -139,6 +141,14 @@ public class PlayerInteraction : MonoBehaviour
                 hoveringOn = Interactable.DeliveryZone2;
                 break;
 
+            case "DeliveryZone3":
+                hoveringOn = Interactable.DeliveryZone3;
+                break;
+
+            case "DeliveryZone4":
+                hoveringOn = Interactable.DeliveryZone4;
+                break;
+
             case "Trashcan":
                 hoveringOn = Interactable.Trashcan;
                 break;
@@ -200,6 +210,14 @@ public class PlayerInteraction : MonoBehaviour
 
                 case "DeliveryZone2":
                     hoveringOn = Interactable.DeliveryZone2;
+                    break;
+
+                case "DeliveryZone3":
+                    hoveringOn = Interactable.DeliveryZone3;
+                    break;
+
+                case "DeliveryZone4":
+                    hoveringOn = Interactable.DeliveryZone4;
                     break;
 
                 case "Trashcan":
@@ -356,45 +374,77 @@ public class PlayerInteraction : MonoBehaviour
 
             case Interactable.DeliveryZone1:
 
-                if (playerNumber == PlayerMovement.PlayerNumber.PlayerOne)
-                {
-                    customerManager.DeliverMeal(mealIngredient1, mealIngredient2, mealIngredient3);
+                customerManager.DeliverMeal(playerNumber, 1, mealIngredient1, mealIngredient2, mealIngredient3);
 
-                    holdingMeal = false;
+                holdingMeal = false;
 
-                    mealPlate.color = Color.clear;
+                mealPlate.color = Color.clear;
 
-                    mealSprite1.color = Color.clear;
-                    mealIngredient1 = Customer.Ingredient.None;
+                mealSprite1.color = Color.clear;
+                mealIngredient1 = Customer.Ingredient.None;
 
-                    mealSprite2.color = Color.clear;
-                    mealIngredient2 = Customer.Ingredient.None;
+                mealSprite2.color = Color.clear;
+                mealIngredient2 = Customer.Ingredient.None;
 
-                    mealSprite3.color = Color.clear;
-                    mealIngredient3 = Customer.Ingredient.None;
-                }
-
+                mealSprite3.color = Color.clear;
+                mealIngredient3 = Customer.Ingredient.None;
+                
                 break;
 
             case Interactable.DeliveryZone2:
 
-                if (playerNumber == PlayerMovement.PlayerNumber.PlayerTwo)
-                {
-                    customerManager.DeliverMeal(mealIngredient1, mealIngredient2, mealIngredient3);
+                customerManager.DeliverMeal(playerNumber, 2, mealIngredient1, mealIngredient2, mealIngredient3);
 
-                    holdingMeal = false;
+                holdingMeal = false;
 
-                    mealPlate.color = Color.clear;
+                mealPlate.color = Color.clear;
 
-                    mealSprite1.color = Color.clear;
-                    mealIngredient1 = Customer.Ingredient.None;
+                mealSprite1.color = Color.clear;
+                mealIngredient1 = Customer.Ingredient.None;
 
-                    mealSprite2.color = Color.clear;
-                    mealIngredient2 = Customer.Ingredient.None;
+                mealSprite2.color = Color.clear;
+                mealIngredient2 = Customer.Ingredient.None;
 
-                    mealSprite3.color = Color.clear;
-                    mealIngredient3 = Customer.Ingredient.None;
-                }
+                mealSprite3.color = Color.clear;
+                mealIngredient3 = Customer.Ingredient.None;
+
+                break;
+
+            case Interactable.DeliveryZone3:
+
+                customerManager.DeliverMeal(playerNumber, 3, mealIngredient1, mealIngredient2, mealIngredient3);
+
+                holdingMeal = false;
+
+                mealPlate.color = Color.clear;
+
+                mealSprite1.color = Color.clear;
+                mealIngredient1 = Customer.Ingredient.None;
+
+                mealSprite2.color = Color.clear;
+                mealIngredient2 = Customer.Ingredient.None;
+
+                mealSprite3.color = Color.clear;
+                mealIngredient3 = Customer.Ingredient.None;
+
+                break;
+
+            case Interactable.DeliveryZone4:
+
+                customerManager.DeliverMeal(playerNumber, 4, mealIngredient1, mealIngredient2, mealIngredient3);
+
+                holdingMeal = false;
+
+                mealPlate.color = Color.clear;
+
+                mealSprite1.color = Color.clear;
+                mealIngredient1 = Customer.Ingredient.None;
+
+                mealSprite2.color = Color.clear;
+                mealIngredient2 = Customer.Ingredient.None;
+
+                mealSprite3.color = Color.clear;
+                mealIngredient3 = Customer.Ingredient.None;
 
                 break;
 

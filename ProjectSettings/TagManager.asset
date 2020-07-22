@@ -23,6 +23,8 @@ TagManager:
   - PlayerHold
   - PickupZone1
   - PickupZone2
+  - DeliveryZone3
+  - DeliveryZone4
   layers:
   - Default
   - TransparentFX

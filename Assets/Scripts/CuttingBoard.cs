@@ -115,6 +115,11 @@ public class CuttingBoard : MonoBehaviour
     // takes the meal and clears the meal area
     public void TakeMeal()
     {
+        if (numberChopped == 0)
+        {
+            return;
+        }
+
         playerInteraction.TakeMeal(choppedIngredient1, choppedIngredient2, choppedIngredient3);
         numberChopped = 0;
 
