@@ -47,6 +47,8 @@ public class PlayerInteraction : MonoBehaviour
     public Color pastaColor;
     public Color riceColor;
 
+    public Color plateColor;
+
     public CuttingBoard cuttingBoard;
 
     public bool holdingMeal = false;
@@ -376,6 +378,11 @@ public class PlayerInteraction : MonoBehaviour
 
             case Interactable.DeliveryZone1:
 
+                if (!holdingMeal)
+                {
+                    break;
+                } 
+
                 customerManager.DeliverMeal(playerNumber, 1, mealIngredient1, mealIngredient2, mealIngredient3);
 
                 holdingMeal = false;
@@ -394,6 +401,11 @@ public class PlayerInteraction : MonoBehaviour
                 break;
 
             case Interactable.DeliveryZone2:
+
+                if (!holdingMeal)
+                {
+                    break;
+                }
 
                 customerManager.DeliverMeal(playerNumber, 2, mealIngredient1, mealIngredient2, mealIngredient3);
 
@@ -414,6 +426,11 @@ public class PlayerInteraction : MonoBehaviour
 
             case Interactable.DeliveryZone3:
 
+                if (!holdingMeal)
+                {
+                    break;
+                }
+
                 customerManager.DeliverMeal(playerNumber, 3, mealIngredient1, mealIngredient2, mealIngredient3);
 
                 holdingMeal = false;
@@ -432,6 +449,11 @@ public class PlayerInteraction : MonoBehaviour
                 break;
 
             case Interactable.DeliveryZone4:
+
+                if (!holdingMeal)
+                {
+                    break;
+                }
 
                 customerManager.DeliverMeal(playerNumber, 4, mealIngredient1, mealIngredient2, mealIngredient3);
 
@@ -531,7 +553,7 @@ public class PlayerInteraction : MonoBehaviour
     {
         holdingMeal = true;
 
-        mealPlate.color = Color.black;
+        mealPlate.color = plateColor;
 
         mealSprite1.sprite = GetIngredientSprite(boardMealIngredient1);
         mealSprite1.color = GetIngredientColor(boardMealIngredient1);

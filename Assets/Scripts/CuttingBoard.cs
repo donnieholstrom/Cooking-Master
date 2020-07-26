@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using Pixelplacement;
 
 public class CuttingBoard : MonoBehaviour
 {
@@ -22,6 +24,8 @@ public class CuttingBoard : MonoBehaviour
 
     public PlayerMovement player;
     public PlayerInteraction playerInteraction;
+
+    public Image radialProgress;
 
     public bool boardEmpty = true;
 
@@ -73,7 +77,11 @@ public class CuttingBoard : MonoBehaviour
         player.frozen = true;
         chopping = true;
 
+        Tween.Value(0f, 1f, HandleRadialProgress, 1f, 0, null, Tween.LoopType.None);
+
         yield return new WaitForSeconds(1f);
+
+        HandleRadialProgress(0);
 
         switch (numberChopped)
         {
@@ -110,6 +118,11 @@ public class CuttingBoard : MonoBehaviour
 
         boardEmpty = true;
         numberChopped++;
+    }
+
+    private void HandleRadialProgress (float value)
+    {
+        radialProgress.fillAmount = value;
     }
 
     // takes the meal and clears the meal area
